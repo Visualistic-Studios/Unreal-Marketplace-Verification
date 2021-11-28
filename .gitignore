@@ -132,3 +132,4 @@ dmypy.json
 
 # App
 config/config.ini
+saved/*
