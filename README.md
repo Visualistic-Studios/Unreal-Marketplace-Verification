@@ -70,7 +70,7 @@ It is recommended to create a new Gmail account specifically for the purpose of 
 
 The bot needs 3 channels to function: `Bot Interaction`, `Bot Interaction Testing`, and a `Bot Log`. Bot interaction is where users will request to be verified. The testing channel is for you to use for testing behind the scenes. Bot log is where the bot posts errors, any messages it gets, etc. 
 
-- Create `Bot Interaction`, `Bot Interaction Testing`, and `Bot Log` channels
+- Create `Bot Interaction`, `Bot Interaction Testing`, and `Bot Log` channels (Names don't matter)
 - Give the bot access to these channels (read & send)
 
 ## 6. Website
