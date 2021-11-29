@@ -45,7 +45,7 @@ pip3 install pysqlcipher3
 ## 3. Create the Database
 
 ## 4. Gmail
-It is recommended to create a new Gmail account specifically for the purpose of verifying your users. Don't sign up for anything using this account; keep it specific for this purpose. Give it a very strong, high entropy password.
+It is recommended to create a new Gmail account specifically for the purpose of verifying your users. Don't sign up for anything using this account; keep it specific for this purpose. Give it a random, high entropy password.
 
 - Go to your account settings. Navigate to the `Security` tab. 
 - Scroll down until you find `Less secure app access`, turn it `ON`
