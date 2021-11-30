@@ -1,11 +1,28 @@
 # Unreal Engine Marketplace Verification
+## Introduction
+Most Unreal Engine Marketplace developers have a Discord community to provide support to their customers. In order to validate real customers, some turn to taking order information from customers and manually sending it to Marketplace Support for validation from Epic. They then assign the user a role which allows them to access support channels and be known as an officially verified owner. This is a tool for those developers to validate their customers automatically using a Discord bot & dedicated email account. 
 
-Project that enables the automation of Unreal Engine product verification using a Discord bot. 
+## Functionality
+The bot will request customer information on command though a direct message, sending a friend request first if they do not allow messages from server. It then forwards the information to Epic Marketplace Support, asks for validity, & waits for a response. 
 
-# TEMPORARY NOTE:
+`Valid Response`
+- Let the user know through a direct message
+- Assign user roles in the discord
+- Mark user as verified in database & increment validation count. 
+
+`Invalid Response` 
+- Tell user in a direct message to reach out to an admin if they believe it's an error. 
+
+Order information is stored as a hash for privacy. With the hashed data you can still monitor requests & enable instant future verification. `Discord ID` & `products owned` remain unhashed due to the bot need to know the users' ID & products owned to give the user the roles & interact with them after it's received a reply. 
+
+Bot relays information provided to it in a `bot-log`, which can be monitored by a select group of admins / mods for support & security reasons. Messages are purged after (x) hours (72 by default) on a timer (every 15 minutes by default)
+
+
+# TEMPORARY NOTES:
 
 - Currently the project works, but isn't updated with a complete guide just yet. It also needs some work. I would love to make this a more reliable, secure, and complete solution. If you find yourself wanting to help, [join the Discord](https://discord.gg/FEnDUZ7rNK) & send me a message!
 
+- Some of the features stated above are not implemented yet. Generally it's safe to assume if it's not on the issues list & it's mentioned here, it's implemented.
 
 # Requirements
 - Python 3
