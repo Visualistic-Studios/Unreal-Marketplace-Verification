@@ -117,7 +117,7 @@ class app_config:
         ##### DISCORD ROLES
         self.unverified_role_id = int(read_config("discord_roles", "unverified_role_id"))
         self.admin_role_id = int(read_config('discord_roles', 'admin_role_id'))
-        self.mod_role_id = int(read_config('discord_roles', 'admin_role_id'))
+        self.mod_role_id = int(read_config('discord_roles', 'mod_role_id'))
         
 
         ##### DISCORD COMMANDS
