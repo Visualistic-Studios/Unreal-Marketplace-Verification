@@ -15,7 +15,7 @@
 import datetime
 
 
-########## PIP
+########## DISCORD
 #####
 import discord
 
