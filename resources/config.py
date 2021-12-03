@@ -150,6 +150,7 @@ class app_config:
 
         self.verify_message = read_config('product_verification', 'email_verify_message').replace('\\n', '\n')
 
+        self.email_strings_to_strip = read_config("product_verification", "email_strings_to_strip").split(",")
 
 
     ########## GET CHANNEL IDS

@@ -74,6 +74,7 @@ def get_all_emails(mailbox):
 #####
 def get_unseen_emails(mailbox):
     emails = []
+
     
     for msg in mailbox.fetch(AND(seen=False),bulk = True):
         emails.append([msg.subject, msg.html])
@@ -130,11 +131,12 @@ def try_find_unseen_email_replies(mailbox,invoice_ids=["0000000"]):
     emails = get_unseen_emails(mailbox)
     new_emails = []
 
-    #print(emails)
-
     for subject, content in emails:
         for invoice_id in invoice_ids:
-            subject_clean = subject.replace('Unreal Engine Marketplace - Invoice #', '')
+
+            # Stips email subject content to reveal the invoice
+            for to_replace in settings.email_strings_to_strip
+                subject_clean = subject.replace(to_replace, '')
             subject_hash = hash_string(subject_clean)
             if invoice_id in subject_hash:
                 new_emails.append([subject,content])

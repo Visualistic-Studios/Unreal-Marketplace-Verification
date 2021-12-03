@@ -633,6 +633,7 @@ async def verification_loop(guild):
     mailbox = app_verify.initiate_mailbox()
     invoice_responses = app_verify.check_verification_status(mailbox, app_database.get_all_unverified_invoices())
 
+
     ## IF ANY RESPONSES TO OUR PREVIOUS EMAILS
     if invoice_responses:
         for response in invoice_responses:
@@ -645,6 +646,9 @@ async def verification_loop(guild):
                 invoice = response[0].strip("Invoice #")
 
             invoice_hash = hash_string(invoice)
+
+            print(f"Invoice Hash: {invoice_hash}")
+            
 
             products_string = ""
 
