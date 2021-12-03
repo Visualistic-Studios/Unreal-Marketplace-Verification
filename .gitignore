@@ -131,5 +131,5 @@ dmypy.json
 
 
 # App
-config/config.ini
+config/config_production.ini
 saved/*
