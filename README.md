@@ -13,7 +13,7 @@ The bot will request customer information on command though a direct message, se
 `Invalid Response` 
 - Tell user in a direct message to reach out to an admin if they believe it's an error. 
 
-Order information is stored as a hash for privacy. With the hashed data you can still monitor requests & enable instant future verification. `Discord ID` & `products owned` remain unhashed due to the bot need to know the users' ID & products owned to give the user the roles & interact with them after it's received a reply. 
+Order information is stored as a hash for privacy. With the hashed data you can still monitor requests & enable instant future verification. `Discord ID` & `products owned` remain unhashed because the bot needs to give the user product specific roles & interact with them after it's received a reply from Epic. 
 
 Bot relays information provided to it in a `bot-log`, which can be monitored by a select group of admins / mods for support & security reasons. Messages are purged after (x) hours (72 by default) on a timer (every 15 minutes by default)
 
