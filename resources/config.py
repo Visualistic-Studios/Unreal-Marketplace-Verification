@@ -26,7 +26,7 @@ load_dotenv()
 
 config = ConfigParser()
 current_directory = os.path.dirname(os.path.abspath(__file__)).strip("resources/")
-config_file_path = "/" + str(current_directory) + "/config/config.ini"
+config_file_path = "/" + str(current_directory) + "/config/config_production.ini"
 
 
 #  _____                      _    _                    
