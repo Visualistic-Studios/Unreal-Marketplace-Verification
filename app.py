@@ -146,7 +146,7 @@ class TimeLoopCog(commands.Cog):
     @tasks.loop(seconds=settings.product_verification_loop_seconds)
     async def product_verification_loop(self):
         if len(client.guilds) > 0:
-            await verification_loop(client.guilds[0])
+            await verification_loop(client, client.guilds[0])
 
 
 

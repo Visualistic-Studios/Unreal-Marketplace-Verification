@@ -628,7 +628,7 @@ async def initiate_discord_verification(bot_client, discord_user):
 
 ########## VERIFICATION LOOP
 #####
-async def verification_loop(guild):
+async def verification_loop(client, guild):
 
     mailbox = app_verify.initiate_mailbox()
     invoice_responses = app_verify.check_verification_status(mailbox, app_database.get_all_unverified_invoices())
@@ -696,6 +696,10 @@ async def verification_loop(guild):
                 embed.add_field(name="Products Validated", value=f"Your order with the product{products_string} was validated by Epic! Check the Discord Community, you've got new roles!", inline=False)
                 await user_receiving_roles.send(embed=embed)
 
+                ## NOTIFY ADMINS
+                ######## NOTIFY ADMINS
+                bot_log_channel = client.get_channel(int(settings.bot_log))
+                await bot_log_channel.send(f"User {user_receiving_roles.mention} has been validated by Epic. Invoice Hash: {invoice_hash}")
 
 
             ## INVALID INVOICE. CUSTOMER ENTERED INCORRECT DATA. REACH OUT TO ADMINS & MARK UNVERIFIED.
