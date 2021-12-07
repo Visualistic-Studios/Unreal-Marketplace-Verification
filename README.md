@@ -13,10 +13,9 @@ The bot will request customer information on command though a direct message, se
 `Invalid Response` 
 - Tell user in a direct message to reach out to an admin if they believe it's an error. 
 
-Order information is stored as a hash for privacy. With the hashed data you can still monitor requests & enable instant future verification. `Discord ID` & `products owned` remain unhashed due to the bot need to know the users' ID & products owned to give the user the roles & interact with them after it's received a reply. 
+Order information is stored as a hash for privacy. With the hashed data you can still monitor requests & enable instant future verification. `Discord ID` & `products owned` remain unhashed because the bot needs to give the user product specific roles & interact with them after it's received a reply from Epic. 
 
 Bot relays information provided to it in a `bot-log`, which can be monitored by a select group of admins / mods for support & security reasons. Messages are purged after (x) hours (72 by default) on a timer (every 15 minutes by default)
-
 
 # TEMPORARY NOTES:
 
@@ -62,7 +61,7 @@ pip3 install pysqlcipher3
 ## 3. Create the Database
 
 ## 4. Gmail
-It is recommended to create a new Gmail account specifically for the purpose of verifying your users. Don't sign up for anything using this account; keep it specific for this purpose. Give it a random, high entropy password.
+It is recommended to create a new Gmail account specifically for the purpose of verifying your users. Don't sign up for anything using this account; keep it specific for this purpose. Give it a random, high entropy password. **Keep this email a secret**: anyone who knows this email can spoof Epics email to verify a product themselves. 
 
 - Go to your account settings. Navigate to the `Security` tab. 
 - Scroll down until you find `Less secure app access`, turn it `ON`
@@ -94,3 +93,5 @@ The bot needs 3 channels to function: `Bot Interaction`, `Bot Interaction Testin
 You'll need a privacy policy for customer data usage. Create one on your website, on GitHub, or another hosted location, and make sure to keep note of the link. 
 
 ## 7. Set the proper settings. 
+
+- Create a copy of the `config.ini`, name it `config_production.ini`
