@@ -134,9 +134,16 @@ def try_find_unseen_email_replies(mailbox,invoice_ids=["0000000"]):
     for subject, content in emails:
         for invoice_id in invoice_ids:
 
-            # Stips email subject content to reveal the invoice
-            for to_replace in settings.email_strings_to_strip:
-                subject_clean = subject.replace(to_replace, '')
+            ## Split at #
+            subject_clean = str(subject.split("#")[1])
+            
+
+            # # Stips email subject content to reveal the invoice
+            # for to_replace in settings.email_strings_to_strip:
+            #     subject_clean = subject.strip(to_replace)
+            # print(f"clean pre-hash: {subject_clean}")
+
+            ## HASH INVOICE
             subject_hash = hash_string(subject_clean)
             if invoice_id in subject_hash:
                 new_emails.append([subject,content])
@@ -167,6 +174,12 @@ def check_verification_status(mailbox,invoice_ids=["0000000"]):
                     ## RETURN INVOICE & VALIDATION BOOL
                     id_reply = reply[0].strip("Re: Invoice #")
                     id_reply = reply[0].strip("RE: Invoice #")
+                    id_reply = reply[0].strip("Invoice #")
+                    id_reply = reply[0].replace("Unreal Engine Marketplace - ", "")
+                    id_reply = reply[0].replace(" ", "")
+
+                    print(f"'Clean' id reply: {id_reply}")
+
                     confirmations_found.append([id_reply, True])
                     reply_confirmation = True
                     break
@@ -178,6 +191,12 @@ def check_verification_status(mailbox,invoice_ids=["0000000"]):
                         ## RETURN INVOICE & VALIDATION BOOL
                         id_reply = reply[0].strip("Re: Invoice #")
                         id_reply = reply[0].strip("RE: Invoice #")
+                        id_reply = reply[0].strip("Invoice #")
+                        id_reply = reply[0].replace("Unreal Engine Marketplace - ")
+                        id_reply = reply[0].replace(" ", "")
+
+                        print(f"'Clean' id reply: {id_reply}")
+
                         confirmations_found.append([id_reply, False])
                         reply_confirmation = False
                         break

@@ -699,7 +699,7 @@ async def verification_loop(client, guild):
                 ## NOTIFY ADMINS
                 ######## NOTIFY ADMINS
                 bot_log_channel = client.get_channel(int(settings.bot_log))
-                await bot_log_channel.send(f"User {user_receiving_roles.mention} has been validated by Epic. Invoice Hash: {invoice_hash}")
+                await bot_log_channel.send(f"User {user_receiving_roles.mention} has been validated by Epic. \n\nInvoice Hash: `{invoice_hash}`")
 
 
             ## INVALID INVOICE. CUSTOMER ENTERED INCORRECT DATA. REACH OUT TO ADMINS & MARK UNVERIFIED.
