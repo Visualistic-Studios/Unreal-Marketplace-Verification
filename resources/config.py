@@ -153,6 +153,9 @@ class app_config:
         self.email_strings_to_strip = read_config("product_verification", "email_strings_to_strip").split(",")
 
 
+        ##### MESSAGES
+        self.bot_message_user_direct_message_not_allowed = read_config("product_verification", "bot_message_user_direct_message_not_allowed")
+
     ########## GET CHANNEL IDS
     #####
 

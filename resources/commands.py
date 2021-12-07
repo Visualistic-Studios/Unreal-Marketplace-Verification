@@ -55,7 +55,14 @@ async def command_request_verification(client,message):
     local_split_message = str(message.content).strip(settings.command_prefix).split(" ")
     author = message.author
     print(f'initiating step one of verification for user {author.display_name}')
-    await app_verify.initiate_discord_verification(client,author)
+    try:
+        await app_verify.initiate_discord_verification(client,author)
+    except Exception as e:
+        if '50007' in str(e):
+            print("User doesn't allow messages")
+            await message.channel.send(f"{author.mention}{settings.bot_message_user_direct_message_not_allowed}")
+
+    
     print(f'step one of verification for user {author.display_name} is now complete')
 
 
