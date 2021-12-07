@@ -101,7 +101,7 @@ async def send_discord_successful_initiation_notice(discord_user):
 async def send_discord_product_verify_initial_notice(discord_user):
     ## MESSAGE |  OVERVIEW
     embed = discord.Embed()
-    embed.add_field(name="Product Verification", value="Hello there! We've created a tool that will automatically reach out to Epic with your details to save you time getting support with your products. Please, enter accurate information and read carefully.", inline=False)
+    embed.add_field(name="Product Verification", value="Hello there! We've created a tool that will automatically reach out to Epic with your details to save you time getting support with your products. Please, enter accurate information and read carefully. Process is canceled after 90 second idle.", inline=False)
     embed.add_field(name="Step 1 | Receiving your Information", value="First things first, we need to get some information about your order. We'll use this to verify your order with Epic. You can find all of the necessary information in your order email, which you should probably have open!", inline=False)
     embed.add_field(name="Step 2 | Waiting for Verification", value="After we've sent your information to Epic, there will be a short wait (typically within 24h) while we wait for their response. ", inline=False)
     embed.add_field(name="Step 3 | Verification Complete", value="Once Epic has responded, I'll immediately assign you the proper roles & let you know with a message.", inline=False)
