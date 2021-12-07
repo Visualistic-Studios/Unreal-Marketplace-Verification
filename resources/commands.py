@@ -57,13 +57,14 @@ async def command_request_verification(client,message):
     print(f'initiating step one of verification for user {author.display_name}')
     try:
         await app_verify.initiate_discord_verification(client,author)
+        print(f'step one of verification for user {author.display_name} is now complete')
     except Exception as e:
         if '50007' in str(e):
             print("User doesn't allow messages")
             await message.channel.send(f"{author.mention}{settings.bot_message_user_direct_message_not_allowed}")
 
     
-    print(f'step one of verification for user {author.display_name} is now complete')
+    
 
 
 ######## SEND HELP COMMAND
