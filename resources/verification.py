@@ -189,12 +189,19 @@ async def get_discord_customer_invoice(bot_client, discord_user, bot_reset):
                 response_msg = response_msg.strip("'")
             if '"' in response_msg:
                 response_msg = response_msg.strip('"')
+            if '#' in response_msg:
+                response_msg = response_msg.strip('#')
+            if " " in response_msg:
+                response_msg = response_msg.strip(' ')
 
             ## CHECK FOR CANCELATION
             if not check_for_cancelation(response_msg):
                 ## CHECK FOR PROPER LENGTH
                 response_msg_list=list(response_msg)
-                if len(response_msg_list)>=9:
+
+                msg_length = len(response_msg_list)
+
+                if msg_length>=settings.invoice_min_length and msg_length <=settings.invoice_max_length:
                     return response_msg
                 else:
                     ## INVALID RESPONSE
@@ -242,12 +249,18 @@ async def get_discord_customer_order_id(bot_client, discord_user, bot_reset):
                 response_msg = response_msg.strip("'")
             if '"' in response_msg:
                 response_msg = response_msg.strip('"')
+            if '#' in response_msg:
+                response_msg = response_msg.strip('#')
+            if " " in response_msg:
+                response_msg = response_msg.strip(' ')
 
             ## CHECK FOR CANCELATION
             if not check_for_cancelation(response_msg):
                 ## CHECK FOR PROPER LENGTH
                 response_msg_list=list(response_msg)
-                if len(response_msg_list)>=13:
+                msg_length = len(response_msg_list)
+                if msg_length>=settings.order_id_min_length and msg_length<settings.order_id_max_length:
+                    print(response_msg)
                     return response_msg
                 else:
                     ## INVALID RESPONSE

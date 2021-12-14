@@ -142,6 +142,11 @@ class app_config:
         self.verification_email = read_config("product_verification", "verification_email")
         self.email_server = read_config("product_verification", "email_server")
         self.released_product_list = read_config("core", "released_product_list").split(",")
+        self.order_id_min_length = int(read_config("product_verification", "order_id_min_length"))
+        self.order_id_max_length = int(read_config("product_verification", "order_id_max_length"))
+        self.invoice_min_length = int(read_config("product_verification", "invoice_min_length"))
+        self.invoice_max_length = int(read_config("product_verification", "invoice_max_length"))
+
         
         if self.is_testing:
             self.epic_email = self.verification_email
