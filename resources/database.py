@@ -379,13 +379,17 @@ def get_invoice_products(invoice_id):
         
     close_database(db_conn)
 
-    print(f"products: {products}")
-    products = products.strip("'")
-    products = products.strip("]")
-    products = products.strip("[")
-    products = products.split(",")
+    if products:
+        print(f"products: {products}")
+        products = products.strip("'")
+        products = products.strip("]")
+        products = products.strip("[")
+        products = products.split(",")
 
-    return products
+        return products
+    else:
+        print('No products found! Likely due to no invoice being found with the same hash.')
+        return None
 
 
 

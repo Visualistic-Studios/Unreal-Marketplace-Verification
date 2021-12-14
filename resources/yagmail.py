@@ -172,11 +172,8 @@ def check_verification_status(mailbox,invoice_ids=["0000000"]):
             for confirmation in settings.epic_confirmation_responses:
                 if confirmation in reply[1]:
                     ## RETURN INVOICE & VALIDATION BOOL
-                    id_reply = reply[0].strip("Re: Invoice #")
-                    id_reply = reply[0].strip("RE: Invoice #")
-                    id_reply = reply[0].strip("Invoice #")
-                    id_reply = reply[0].replace("Unreal Engine Marketplace - ", "")
-                    id_reply = reply[0].replace(" ", "")
+
+                    id_reply = reply[0].split('#')[1]
 
                     print(f"'Clean' id reply: {id_reply}")
 
@@ -189,11 +186,8 @@ def check_verification_status(mailbox,invoice_ids=["0000000"]):
                 for non_confirmation in settings.epic_non_confirmation_responses:
                     if non_confirmation in reply[1]:    
                         ## RETURN INVOICE & VALIDATION BOOL
-                        id_reply = reply[0].strip("Re: Invoice #")
-                        id_reply = reply[0].strip("RE: Invoice #")
-                        id_reply = reply[0].strip("Invoice #")
-                        id_reply = reply[0].replace("Unreal Engine Marketplace - ")
-                        id_reply = reply[0].replace(" ", "")
+
+                        id_reply = reply[0].split('#')[1]
 
                         print(f"'Clean' id reply: {id_reply}")
 
