@@ -656,8 +656,10 @@ async def verification_loop(client, guild):
 
             role_to_assign = None
 
+            product_list = app_database.get_invoice_products(invoice_hash)
+
             ## GIVE USER ROLES
-            for index, product in enumerate(app_database.get_invoice_products(invoice_hash)):
+            for index, product in enumerate(product_list):
                 role_to_assign = await app_products.get_product_role_by_name(product, guild)
                 roles_to_assign.append(role_to_assign)
 
@@ -699,7 +701,7 @@ async def verification_loop(client, guild):
                 ## NOTIFY ADMINS
                 ######## NOTIFY ADMINS
                 bot_log_channel = client.get_channel(int(settings.bot_log))
-                await bot_log_channel.send(f"User {user_receiving_roles.mention} has been validated by Epic. \n\nInvoice Hash: `{invoice_hash}`")
+                await bot_log_channel.send(f"User {user_receiving_roles.mention} has been validated by Epic. \n\nInvoice Hash: `{invoice_hash}`\n\n```Product{products_string}```")
 
 
             ## INVALID INVOICE. CUSTOMER ENTERED INCORRECT DATA. REACH OUT TO ADMINS & MARK UNVERIFIED.
