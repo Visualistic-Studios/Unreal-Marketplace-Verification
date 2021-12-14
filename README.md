@@ -3,7 +3,7 @@
 Most Unreal Engine Marketplace developers have a Discord community to provide support to their customers. In order to validate real customers, some turn to taking order information from customers and manually sending it to Marketplace Support for validation from Epic. They then assign the user a role which allows them to access support channels and be known as an officially verified owner. This is a tool for those developers to validate their customers automatically using a Discord bot & dedicated email account. 
 
 ## Functionality
-The bot will request customer information on command though a direct message, sending a friend request first if they do not allow messages from server. It then forwards the information to Epic Marketplace Support, asks for validity, & waits for a response. 
+The bot will request customer information on command though a direct message, asking them to change settings if they do not allow messages from server. It then forwards the information to Epic Marketplace Support, asks for validity, & waits for a response. 
 
 `Valid Response`
 - Let the user know through a direct message
