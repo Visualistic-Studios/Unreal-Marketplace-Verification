@@ -260,7 +260,6 @@ async def get_discord_customer_order_id(bot_client, discord_user, bot_reset):
                 response_msg_list=list(response_msg)
                 msg_length = len(response_msg_list)
                 if msg_length>=settings.order_id_min_length and msg_length<settings.order_id_max_length:
-                    print(response_msg)
                     return response_msg
                 else:
                     ## INVALID RESPONSE
