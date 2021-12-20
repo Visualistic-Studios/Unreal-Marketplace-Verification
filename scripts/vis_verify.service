@@ -1,0 +1,14 @@
+
+[Unit]
+Description="Discord Verification Tool"
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+User=USERNAME
+ExecStart=python3 /PATH/TO/PROJECT/ue-mkt-verify/app.py
+
+[Install]
+WantedBy=sysinit.target
