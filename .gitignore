@@ -133,3 +133,4 @@ dmypy.json
 # App
 config/config_production.ini
 saved/*
+scripts/daily_backup_production.sh
