@@ -642,103 +642,107 @@ async def initiate_discord_verification(bot_client, discord_user):
 #####
 async def verification_loop(client, guild):
 
-    mailbox = app_verify.initiate_mailbox()
-    invoice_responses = app_verify.check_verification_status(mailbox, app_database.get_all_unverified_invoices())
+    try: 
+
+        mailbox = app_verify.initiate_mailbox()
+        invoice_responses = app_verify.check_verification_status(mailbox, app_database.get_all_unverified_invoices())
 
 
-    ## IF ANY RESPONSES TO OUR PREVIOUS EMAILS
-    if invoice_responses:
-        for response in invoice_responses:
+        ## IF ANY RESPONSES TO OUR PREVIOUS EMAILS
+        if invoice_responses:
+            for response in invoice_responses:
 
 
-            ## GET THE INVOICE FROM THE EMAIL
-            if "Unreal Engine Marketplace - Invoice #" in response[0]:
-                invoice = response[0].strip("Unreal Engine Marketplace - Invoice #")
-            else:
-                invoice = response[0].strip("Invoice #")
-
-            invoice_hash = hash_string(invoice)
-
-            print(f"Invoice Hash: {invoice_hash}")
-            
-
-            products_string = ""
-
-            roles_to_assign = []
-
-            role_to_assign = None
-
-            product_list = app_database.get_invoice_products(invoice_hash)
-
-            ## GIVE USER ROLES
-            for index, product in enumerate(product_list):
-                role_to_assign = await app_products.get_product_role_by_name(product, guild)
-                roles_to_assign.append(role_to_assign)
-
-
-                if len(settings.released_product_list)>1:
-                    if index==0:
-                        products_string += "s " + str(product)
-                    elif index==len(settings.released_product_list)-1:
-                        products_string = products_string + f" and {str(product)}"
-                    else:
-                        products_string += ", " + str(product)
+                ## GET THE INVOICE FROM THE EMAIL
+                if "Unreal Engine Marketplace - Invoice #" in response[0]:
+                    invoice = response[0].strip("Unreal Engine Marketplace - Invoice #")
                 else:
-                    products_string = " " + str(product)
+                    invoice = response[0].strip("Invoice #")
 
-            products_string = products_string.replace("'", "")
+                invoice_hash = hash_string(invoice)
 
-            ## IF VALID
-            if response[1]:
-                ## CUSTOMER HAS BEEN VERIFIED
-                app_database.mark_customer_verified(invoice_hash)
-
-
-      
-                user_receiving_roles_id = app_database.get_invoice_discord_id(invoice_hash)
-                user_receiving_roles = guild.get_member(int(user_receiving_roles_id))
-
-                for role in roles_to_assign:
-                    if role:
-                        await user_receiving_roles.add_roles(role)
+                print(f"Invoice Hash: {invoice_hash}")
                 
-                ## REMOVE UNVERIFIED ROLE
-                await user_receiving_roles.remove_roles(settings.get_unverified_owner_role(guild))
 
-                ## SEND THEM A VERIFICATION
-                embed=discord.Embed()
-                embed.add_field(name="Products Validated", value=f"Your order with the product{products_string} was validated by Epic! Check the Discord Community, you've got new roles!", inline=False)
-                await user_receiving_roles.send(embed=embed)
+                products_string = ""
 
-                ## NOTIFY ADMINS
-                ######## NOTIFY ADMINS
-                bot_log_channel = client.get_channel(int(settings.bot_log))
-                await bot_log_channel.send(f"User {user_receiving_roles.mention} has been validated by Epic. \n\nInvoice Hash: `{invoice_hash}`\n\n```Product{products_string}```")
+                roles_to_assign = []
+
+                role_to_assign = None
+
+                product_list = app_database.get_invoice_products(invoice_hash)
+
+                ## GIVE USER ROLES
+                for index, product in enumerate(product_list):
+                    role_to_assign = await app_products.get_product_role_by_name(product, guild)
+                    roles_to_assign.append(role_to_assign)
 
 
-            ## INVALID INVOICE. CUSTOMER ENTERED INCORRECT DATA. REACH OUT TO ADMINS & MARK UNVERIFIED.
-            elif response[1]==False:
-                app_database.mark_customer_nonverified(invoice_hash)
-                
-                ## SEND MESSAGE TO USER
-                user_id = app_database.get_invoice_discord_id(invoice_hash)
-                user_object = guild.get_member(int(user_id))
-                
-                embed=discord.Embed()
-                embed.add_field(name="Products Not Valid", value=f"Your order with the product{products_string} unfortunately wasn't validated by Epic. Please reach out to admins if you believe this is an error. ", inline=False)
-                await user_object.send(embed=embed)
+                    if len(settings.released_product_list)>1:
+                        if index==0:
+                            products_string += "s " + str(product)
+                        elif index==len(settings.released_product_list)-1:
+                            products_string = products_string + f" and {str(product)}"
+                        else:
+                            products_string += ", " + str(product)
+                    else:
+                        products_string = " " + str(product)
 
-                ## SEND MESSAGE TO ADMINS
-                notify_channel = guild.get_channel(settings.bot_log)
-                embed=discord.Embed()
-                embed.add_field(name="Products Not Valid", value=f"The user {user_object.display_name} ({user_object.id}) tried to verify with the product{products_string}\nUnfortunately, Epic said they were invalid.", inline=False)
-                await notify_channel.send(embed=embed)
+                products_string = products_string.replace("'", "")
 
-            ## ELSE RESPONSE NOT RECOGNIZED. NEED TO REACH OUT TO ADMINS WITH THE DETAILS
-            else:
-                pass
-                # need to notify admin 
+                ## IF VALID
+                if response[1]:
+                    ## CUSTOMER HAS BEEN VERIFIED
+                    app_database.mark_customer_verified(invoice_hash)
 
-    app_verify.close_mailbox(mailbox)
+
+        
+                    user_receiving_roles_id = app_database.get_invoice_discord_id(invoice_hash)
+                    user_receiving_roles = guild.get_member(int(user_receiving_roles_id))
+
+                    for role in roles_to_assign:
+                        if role:
+                            await user_receiving_roles.add_roles(role)
+                    
+                    ## REMOVE UNVERIFIED ROLE
+                    await user_receiving_roles.remove_roles(settings.get_unverified_owner_role(guild))
+
+                    ## SEND THEM A VERIFICATION
+                    embed=discord.Embed()
+                    embed.add_field(name="Products Validated", value=f"Your order with the product{products_string} was validated by Epic! Check the Discord Community, you've got new roles!", inline=False)
+                    await user_receiving_roles.send(embed=embed)
+
+                    ## NOTIFY ADMINS
+                    ######## NOTIFY ADMINS
+                    bot_log_channel = client.get_channel(int(settings.bot_log))
+                    await bot_log_channel.send(f"User {user_receiving_roles.mention} has been validated by Epic. \n\nInvoice Hash: `{invoice_hash}`\n\n```Product{products_string}```")
+
+
+                ## INVALID INVOICE. CUSTOMER ENTERED INCORRECT DATA. REACH OUT TO ADMINS & MARK UNVERIFIED.
+                elif response[1]==False:
+                    app_database.mark_customer_nonverified(invoice_hash)
+                    
+                    ## SEND MESSAGE TO USER
+                    user_id = app_database.get_invoice_discord_id(invoice_hash)
+                    user_object = guild.get_member(int(user_id))
+                    
+                    embed=discord.Embed()
+                    embed.add_field(name="Products Not Valid", value=f"Your order with the product{products_string} unfortunately wasn't validated by Epic. Please reach out to admins if you believe this is an error. ", inline=False)
+                    await user_object.send(embed=embed)
+
+                    ## SEND MESSAGE TO ADMINS
+                    notify_channel = guild.get_channel(settings.bot_log)
+                    embed=discord.Embed()
+                    embed.add_field(name="Products Not Valid", value=f"The user {user_object.display_name} ({user_object.id}) tried to verify with the product{products_string}\nUnfortunately, Epic said they were invalid.", inline=False)
+                    await notify_channel.send(embed=embed)
+
+                ## ELSE RESPONSE NOT RECOGNIZED. NEED TO REACH OUT TO ADMINS WITH THE DETAILS
+                else:
+                    pass
+                    # need to notify admin 
+
+        app_verify.close_mailbox(mailbox)
+    except Exception as e:
+        print(str(e))
 
 
