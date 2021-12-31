@@ -135,7 +135,8 @@ def try_find_unseen_email_replies(mailbox,invoice_ids=["0000000"]):
         for invoice_id in invoice_ids:
 
             ## Split at #
-            subject_clean = str(subject.split("#")[1])
+            if "#" in str(subject):
+                subject_clean = str(subject.split("#")[1])
             
 
             # # Stips email subject content to reveal the invoice
@@ -144,11 +145,13 @@ def try_find_unseen_email_replies(mailbox,invoice_ids=["0000000"]):
             # print(f"clean pre-hash: {subject_clean}")
 
             ## HASH INVOICE
-            subject_hash = hash_string(subject_clean)
-            if invoice_id in subject_hash:
-                new_emails.append([subject,content])
-                break
-    
+                subject_hash = hash_string(subject_clean)
+                if invoice_id in subject_hash:
+                    new_emails.append([subject,content])
+                    break
+            else:
+                continue
+
     return new_emails
 
 
