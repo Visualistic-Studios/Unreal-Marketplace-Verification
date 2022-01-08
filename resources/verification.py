@@ -37,6 +37,13 @@ settings = app_config()
 # |_|     \__,_||_| |_| \___| \__||_| \___/ |_| |_||___/
 # ----------------------------------------------------------------------- 
 
+######## NOTIFY ADMINS
+#####
+async def notify_admins(messageContent):
+    print(messageContent)
+    channel = client.get_channel(int(settings.bot_log))
+    await channel.send(str(messageContent))
+
 
 ########## CHECK FOR CANCELATION
 #####
@@ -738,11 +745,15 @@ async def verification_loop(client, guild):
 
                 ## ELSE RESPONSE NOT RECOGNIZED. NEED TO REACH OUT TO ADMINS WITH THE DETAILS
                 else:
+                    await notify_admins(f"Couldnt parse the email for hash {invoice_hash}")
+                    print('dont know what this email is')
                     pass
+                    
                     # need to notify admin 
 
         app_verify.close_mailbox(mailbox)
     except Exception as e:
         print(str(e))
+        #notify_admins(f"Verification Error: {str(e)}")
 
 
