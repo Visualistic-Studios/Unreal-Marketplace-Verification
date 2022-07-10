@@ -1,5 +1,4 @@
 # Unreal Engine Marketplace Verification
-[![GitHub Clones](https://img.shields.io/badge/dynamic/json?color=success&label=Clone&query=count&url=https://gist.githubusercontent.com/VisualisticStudios/292ef1c4e674d06cf629faa286456c2f/raw/clone.json&logo=github)](https://github.com/MShawon/github-clone-count-badge)
 ## Introduction
 Most Unreal Engine Marketplace developers have a Discord community to provide support to their customers. In order to validate real customers, some turn to taking order information from customers and manually sending it to Marketplace Support for validation from Epic. They then assign the user a role which allows them to access support channels and be known as an officially verified owner. This is a tool for those developers to validate their customers automatically using a Discord bot & dedicated email account. 
 
