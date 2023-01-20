@@ -38,13 +38,16 @@ Bot relays information provided to it in a `bot-log`, which can be monitored by 
 **Linux**
 ```
 ## SQLCipher & dependencies
-`sudo apt install sqlcipher libsqlcipher0 libsqlcipher-dev`
+sudo apt install sqlcipher libsqlcipher0 libsqlcipher-dev
 
 ## Optional virtual environment
-`python3 -m venv venv`
+python3 -m venv venv
+
+## Activate the virtual environment
+source venv/bin/activate
 
 ## Install the python wrapper
-`pip3 install pysqlcipher3`
+pip3 install pysqlcipher3
 ```
 
 **Mac**
@@ -53,6 +56,9 @@ brew install sqlite3
 
 ## Optional virtual environment
 python3 -m venv venv
+
+## Activate the virtual environment
+source venv/bin/activate
 
 ## Install the python wrapper
 pip3 install pysqlcipher3
